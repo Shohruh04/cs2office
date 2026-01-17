@@ -13,6 +13,13 @@ router.post('/', async (req, res) => {
   try {
     const payload: GSIPayload = req.body;
 
+    // Log incoming GSI data for debugging
+    if (payload.map) {
+      const hasAllPlayers = payload.allplayers && Object.keys(payload.allplayers).length > 0;
+      const hasPlayer = payload.player && payload.player.steamid;
+      console.log(`[GSI] Map: ${payload.map.name}, Phase: ${payload.map.phase}, Round: ${payload.map.round}, AllPlayers: ${hasAllPlayers ? Object.keys(payload.allplayers!).length : 0}, SinglePlayer: ${hasPlayer ? payload.player!.name : 'none'}`);
+    }
+
     // Parse the match state
     const matchState = gsiParser.parseMatchState(payload);
 

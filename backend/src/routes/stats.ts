@@ -11,15 +11,15 @@ router.get('/leaderboard', async (req, res) => {
   try {
     const sortBy = (req.query.sort as string) || 'kills';
 
-    let orderClause = 'total_kills DESC';
+    let orderClause = 'totalKills DESC';
     if (sortBy === 'kd') {
-      orderClause = 'CAST(total_kills AS REAL) / NULLIF(total_deaths, 0) DESC';
+      orderClause = 'CAST(totalKills AS REAL) / NULLIF(totalDeaths, 0) DESC';
     } else if (sortBy === 'headshots') {
-      orderClause = 'total_headshots DESC';
+      orderClause = 'totalHeadshots DESC';
     } else if (sortBy === 'mvps') {
-      orderClause = 'total_mvps DESC';
+      orderClause = 'totalMvps DESC';
     } else if (sortBy === 'score') {
-      orderClause = 'total_score DESC';
+      orderClause = 'totalScore DESC';
     }
 
     const leaderboard = query<{
@@ -45,6 +45,7 @@ router.get('/leaderboard', async (req, res) => {
              COUNT(DISTINCT mp.match_id) as matchesPlayed
       FROM players p
       LEFT JOIN match_players mp ON p.id = mp.player_id
+      WHERE p.steam_id NOT LIKE 'BOT%'
       GROUP BY p.id
       ORDER BY ${orderClause}
     `);
@@ -80,9 +81,10 @@ router.get('/leaderboard', async (req, res) => {
  */
 router.get('/summary', async (req, res) => {
   try {
-    // Total counts
+    // Total counts (excluding bots)
     const totalPlayers = queryOne<{ count: number }>(`
       SELECT COUNT(*) as count FROM players
+      WHERE steam_id NOT LIKE 'BOT%'
     `);
 
     const totalMatches = queryOne<{ count: number }>(`
@@ -107,7 +109,7 @@ router.get('/summary', async (req, res) => {
       LIMIT 5
     `);
 
-    // Top killer
+    // Top killer (excluding bots)
     const topKiller = queryOne<{
       playerId: number;
       name: string;
@@ -116,6 +118,7 @@ router.get('/summary', async (req, res) => {
       SELECT p.id as playerId, p.name, SUM(mp.kills) as kills
       FROM match_players mp
       INNER JOIN players p ON mp.player_id = p.id
+      WHERE p.steam_id NOT LIKE 'BOT%'
       GROUP BY p.id
       ORDER BY kills DESC
       LIMIT 1

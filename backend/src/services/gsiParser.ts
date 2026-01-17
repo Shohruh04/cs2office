@@ -11,6 +11,14 @@ export class GSIParser {
   private previousPlayers: Map<string, { health: number; roundKills: number }> = new Map();
 
   /**
+   * Check if a steam ID belongs to a bot
+   */
+  isBot(steamId: string): boolean {
+    // Bot steam IDs start with "BOT" in CS2 GSI data
+    return steamId.startsWith('BOT');
+  }
+
+  /**
    * Parse raw GSI payload into a structured match state
    */
   parseMatchState(payload: GSIPayload): ParsedMatchState | null {
@@ -20,9 +28,15 @@ export class GSIParser {
 
     const players: ParsedPlayerState[] = [];
 
-    // Parse all players
-    if (payload.allplayers) {
+    // Parse all players (filter out bots) - available in spectator/GOTV mode
+    if (payload.allplayers && Object.keys(payload.allplayers).length > 0) {
+      console.log(`[GSI] Received allplayers data with ${Object.keys(payload.allplayers).length} players`);
       for (const [steamId, playerData] of Object.entries(payload.allplayers)) {
+        // Skip bots
+        if (this.isBot(steamId)) {
+          continue;
+        }
+
         players.push({
           steamId,
           name: playerData.name,
@@ -40,6 +54,33 @@ export class GSIParser {
           roundDamage: playerData.state?.round_totaldmg ?? 0,
           equipValue: playerData.state?.equip_value ?? 0,
           hasDefuseKit: playerData.state?.defusekit ?? false,
+        });
+      }
+    }
+    // Fallback: Use single player data when playing (not spectating)
+    else if (payload.player && payload.player.steamid && payload.player.team) {
+      const steamId = payload.player.steamid;
+
+      // Skip bots
+      if (!this.isBot(steamId)) {
+        console.log(`[GSI] Received single player data for: ${payload.player.name} (${steamId})`);
+        players.push({
+          steamId,
+          name: payload.player.name,
+          team: payload.player.team,
+          health: payload.player.state?.health ?? 0,
+          armor: payload.player.state?.armor ?? 0,
+          helmet: payload.player.state?.helmet ?? false,
+          money: payload.player.state?.money ?? 0,
+          kills: payload.player.match_stats?.kills ?? 0,
+          deaths: payload.player.match_stats?.deaths ?? 0,
+          assists: payload.player.match_stats?.assists ?? 0,
+          mvps: payload.player.match_stats?.mvps ?? 0,
+          score: payload.player.match_stats?.score ?? 0,
+          roundKills: payload.player.state?.round_kills ?? 0,
+          roundDamage: payload.player.state?.round_totaldmg ?? 0,
+          equipValue: payload.player.state?.equip_value ?? 0,
+          hasDefuseKit: payload.player.state?.defusekit ?? false,
         });
       }
     }
@@ -71,6 +112,11 @@ export class GSIParser {
 
     // Check for players who died (health went from > 0 to 0)
     for (const [steamId, playerData] of Object.entries(payload.allplayers)) {
+      // Skip bots
+      if (this.isBot(steamId)) {
+        continue;
+      }
+
       const prevPlayerData = this.previousPlayers.get(steamId);
       const currentHealth = playerData.state?.health ?? 0;
       const prevHealth = prevPlayerData?.health ?? 100;
@@ -78,6 +124,11 @@ export class GSIParser {
       if (prevHealth > 0 && currentHealth === 0) {
         // Player died - try to find killer
         const killer = this.findKiller(payload, steamId);
+
+        // Skip if killer is a bot
+        if (killer?.steamId && this.isBot(killer.steamId)) {
+          continue;
+        }
 
         kills.push({
           killerSteamId: killer?.steamId ?? null,

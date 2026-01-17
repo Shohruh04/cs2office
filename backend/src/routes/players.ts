@@ -24,7 +24,12 @@ interface StatsRow {
 
 router.get('/', async (req, res) => {
   try {
-    const allPlayers = query<PlayerRow>('SELECT * FROM players ORDER BY created_at DESC');
+    // Filter out bots (steam_id starting with BOT)
+    const allPlayers = query<PlayerRow>(`
+      SELECT * FROM players
+      WHERE steam_id NOT LIKE 'BOT%'
+      ORDER BY created_at DESC
+    `);
 
     const playersWithStats = allPlayers.map((player) => {
       const stats = queryOne<StatsRow>(`

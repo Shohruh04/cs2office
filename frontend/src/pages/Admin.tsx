@@ -178,6 +178,45 @@ export default function Admin() {
         </div>
       </div>
 
+      {/* Important Note about Spectator Mode */}
+      <div className="cs-card p-6 border-l-4 border-yellow-500">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-yellow-500 text-xl">⚠️</span>
+          <h2 className="text-lg font-semibold text-white">
+            Important: How to Track All Players
+          </h2>
+        </div>
+        <div className="space-y-3 text-cs2-gray">
+          <p>
+            <strong className="text-white">CS2 Limitation:</strong> Game State Integration only sends data for ALL players when you are <span className="text-yellow-500">spectating</span> the match, not when playing.
+          </p>
+          <p>When playing, only YOUR stats are tracked. To track everyone:</p>
+          <div className="bg-cs2-darker p-4 rounded-lg space-y-2">
+            <p className="text-white font-semibold">Option 1: Spectator Mode (Recommended)</p>
+            <ol className="list-decimal list-inside space-y-1 text-sm">
+              <li>Have one person join as <span className="text-ct">Spectator</span> team</li>
+              <li>That person's CS2 will send ALL player data to the tracker</li>
+              <li>Everyone else can play normally</li>
+            </ol>
+          </div>
+          <div className="bg-cs2-darker p-4 rounded-lg space-y-2">
+            <p className="text-white font-semibold">Option 2: GOTV (Advanced)</p>
+            <ol className="list-decimal list-inside space-y-1 text-sm">
+              <li>Enable GOTV on your server with <code className="text-cs2-orange">tv_enable 1</code></li>
+              <li>Connect to GOTV port to spectate</li>
+            </ol>
+          </div>
+          <div className="bg-cs2-darker p-4 rounded-lg space-y-2">
+            <p className="text-white font-semibold">Option 3: Everyone Installs GSI Config</p>
+            <ol className="list-decimal list-inside space-y-1 text-sm">
+              <li>Each player installs the GSI config on their PC</li>
+              <li>Change the URI to point to the host's IP: <code className="text-cs2-orange">http://192.168.x.x:8000/api/gsi</code></li>
+              <li>Each player's stats will be tracked individually</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
       {/* Players Management */}
       <div className="cs-card p-6">
         <div className="flex items-center gap-2 mb-4">

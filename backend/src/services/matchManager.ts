@@ -16,7 +16,20 @@ export class MatchManager {
     return this.liveState;
   }
 
+  /**
+   * Check if a steam ID belongs to a bot
+   */
+  private isBot(steamId: string): boolean {
+    // Bot steam IDs start with "BOT" in CS2 GSI data
+    return steamId.startsWith('BOT');
+  }
+
   async getOrCreatePlayer(steamId: string, name: string): Promise<number> {
+    // Skip bots
+    if (this.isBot(steamId)) {
+      return -1;
+    }
+
     const existing = queryOne<{ id: number; name: string }>(
       'SELECT id, name FROM players WHERE steam_id = ?',
       [steamId]
@@ -64,6 +77,9 @@ export class MatchManager {
 
     const playerId = await this.getOrCreatePlayer(player.steamId, player.name);
 
+    // Skip bots (playerId is -1 for bots)
+    if (playerId < 0) return;
+
     const existing = queryOne(
       'SELECT id FROM match_players WHERE match_id = ? AND player_id = ?',
       [this.currentMatchId, playerId]
@@ -101,6 +117,9 @@ export class MatchManager {
     if (!this.currentMatchId) return;
 
     const playerId = await this.getOrCreatePlayer(player.steamId, player.name);
+
+    // Skip bots (playerId is -1 for bots)
+    if (playerId < 0) return;
 
     run(
       'UPDATE match_players SET team = ?, kills = ?, deaths = ?, assists = ?, mvps = ?, score = ?, damage = ? WHERE match_id = ? AND player_id = ?',
