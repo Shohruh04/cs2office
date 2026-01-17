@@ -35,17 +35,17 @@ export default function Matches() {
     <div className="space-y-6 animate-in">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <History className="text-accent-orange" size={28} />
+        <History className="text-cs2-orange" size={28} />
         <div>
           <h1 className="text-2xl font-bold text-white">Match History</h1>
-          <p className="text-gray-400">{matches.length} matches played</p>
+          <p className="text-cs2-gray">{matches.length} matches played</p>
         </div>
       </div>
 
       {/* Matches List */}
       {loading ? (
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-orange"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cs2-orange"></div>
         </div>
       ) : matches.length > 0 ? (
         <div className="space-y-2">
@@ -56,7 +56,7 @@ export default function Matches() {
                   <div className="flex items-center gap-4">
                     {/* Map */}
                     <div className="flex items-center gap-2">
-                      <MapPin size={18} className="text-accent-orange" />
+                      <MapPin size={18} className="text-cs2-orange" />
                       <span className="font-medium text-white text-lg">
                         {match.map}
                       </span>
@@ -69,7 +69,7 @@ export default function Matches() {
                           ? 'bg-red-500/20 text-red-400'
                           : match.status === 'completed'
                           ? 'bg-accent-green/20 text-accent-green'
-                          : 'bg-gray-500/20 text-gray-400'
+                          : 'bg-gray-500/20 text-cs2-gray'
                       }`}
                     >
                       {match.status.toUpperCase()}
@@ -90,7 +90,7 @@ export default function Matches() {
                   </div>
 
                   {/* Meta */}
-                  <div className="flex items-center gap-6 text-sm text-gray-400">
+                  <div className="flex items-center gap-6 text-sm text-cs2-gray">
                     <span className="flex items-center gap-1">
                       <Users size={14} />
                       {match.playerCount} players
@@ -112,7 +112,7 @@ export default function Matches() {
           <h2 className="text-xl font-semibold text-white mb-2">
             No Matches Yet
           </h2>
-          <p className="text-gray-400">
+          <p className="text-cs2-gray">
             Start playing CS2 to see your match history here!
           </p>
         </div>

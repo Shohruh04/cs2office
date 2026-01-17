@@ -39,7 +39,7 @@ export default function LiveMatch() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-orange"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cs2-orange"></div>
       </div>
     );
   }
@@ -52,7 +52,7 @@ export default function LiveMatch() {
           <h2 className="text-xl font-semibold text-white mb-2">
             No Live Match
           </h2>
-          <p className="text-gray-400 mb-4">
+          <p className="text-cs2-gray mb-4">
             Start a CS2 match to see live stats here.
           </p>
           <Link to="/" className="cs-button-secondary">
@@ -78,7 +78,7 @@ export default function LiveMatch() {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">{state.map}</h1>
-              <p className="text-gray-400">
+              <p className="text-cs2-gray">
                 Round {state.round} • {state.roundPhase}
               </p>
             </div>
@@ -161,10 +161,10 @@ export default function LiveMatch() {
                     <span className="text-white font-medium">
                       {kill.killerSteamId ? 'Player' : '?'}
                     </span>
-                    <span className="text-gray-400">
+                    <span className="text-cs2-gray">
                       [{kill.weapon}]
                       {kill.headshot && (
-                        <Target size={12} className="inline ml-1 text-accent-gold" />
+                        <Target size={12} className="inline ml-1 text-cs2-orange-light" />
                       )}
                     </span>
                     <span className="text-red-400">Player</span>
@@ -230,11 +230,11 @@ function PlayerRow({ player }: { player: LivePlayer }) {
               style={{ width: `${player.health}%` }}
             />
           </div>
-          <span className="text-xs text-gray-400 w-8">{player.health}</span>
+          <span className="text-xs text-cs2-gray w-8">{player.health}</span>
         </div>
         <div className="flex items-center gap-1">
           <Shield size={14} className="text-ct" />
-          <span className="text-xs text-gray-400">{player.armor}</span>
+          <span className="text-xs text-cs2-gray">{player.armor}</span>
         </div>
       </div>
 
@@ -249,7 +249,7 @@ function PlayerRow({ player }: { player: LivePlayer }) {
             <Skull size={12} />
             {player.deaths}
           </span>
-          <span className="text-gray-400">A: {player.assists}</span>
+          <span className="text-cs2-gray">A: {player.assists}</span>
         </div>
         <div className="flex items-center gap-3">
           {player.mvps > 0 && (
@@ -258,7 +258,7 @@ function PlayerRow({ player }: { player: LivePlayer }) {
               {player.mvps}
             </span>
           )}
-          <span className="flex items-center gap-1 text-accent-gold">
+          <span className="flex items-center gap-1 text-cs2-orange-light">
             <DollarSign size={12} />
             ${player.money}
           </span>

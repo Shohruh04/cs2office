@@ -7,13 +7,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        // CS2 Dark Theme Colors
+        // CS2 Official Colors
+        cs2: {
+          orange: '#de9b35',
+          'orange-light': '#f5a623',
+          'orange-dark': '#c4841f',
+          gray: '#d4d4d4',
+          'gray-light': '#e8e8e8',
+          'gray-dark': '#a8a8a8',
+          dark: '#2d2d2d',
+          darker: '#1a1a1a',
+          black: '#0d0d0d',
+        },
+        // Legacy CS Theme Colors
         cs: {
-          dark: '#0a0a0b',
-          darker: '#050506',
-          card: '#12131a',
-          border: '#1e2029',
-          hover: '#1a1b24',
+          dark: '#1a1a1a',
+          darker: '#0d0d0d',
+          card: '#252525',
+          border: '#3d3d3d',
+          hover: '#333333',
         },
         // Team Colors
         ct: {
@@ -22,14 +34,14 @@ export default {
           dark: '#4a7bc4',
         },
         t: {
-          DEFAULT: '#e57373',
-          light: '#ef9a9a',
-          dark: '#c62828',
+          DEFAULT: '#de9b35',
+          light: '#f5a623',
+          dark: '#c4841f',
         },
         // Accent Colors
         accent: {
-          gold: '#ffc107',
-          orange: '#ff9800',
+          gold: '#f5a623',
+          orange: '#de9b35',
           green: '#4caf50',
           red: '#f44336',
         },
@@ -47,8 +59,8 @@ export default {
       },
       keyframes: {
         glow: {
-          '0%': { boxShadow: '0 0 5px rgba(255, 152, 0, 0.5)' },
-          '100%': { boxShadow: '0 0 20px rgba(255, 152, 0, 0.8)' },
+          '0%': { boxShadow: '0 0 5px rgba(222, 155, 53, 0.5)' },
+          '100%': { boxShadow: '0 0 20px rgba(222, 155, 53, 0.8)' },
         },
         slideUp: {
           '0%': { transform: 'translateY(10px)', opacity: '0' },
@@ -65,9 +77,9 @@ export default {
       },
       boxShadow: {
         'cs': '0 4px 20px rgba(0, 0, 0, 0.5)',
-        'cs-glow': '0 0 20px rgba(255, 152, 0, 0.3)',
+        'cs-glow': '0 0 20px rgba(222, 155, 53, 0.3)',
         'ct-glow': '0 0 20px rgba(93, 156, 236, 0.3)',
-        't-glow': '0 0 20px rgba(229, 115, 115, 0.3)',
+        't-glow': '0 0 20px rgba(222, 155, 53, 0.3)',
       },
     },
   },

@@ -49,7 +49,7 @@ export default function PlayerProfile() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-orange"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cs2-orange"></div>
       </div>
     );
   }
@@ -87,7 +87,7 @@ export default function PlayerProfile() {
       {/* Back Button */}
       <Link
         to="/players"
-        className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        className="inline-flex items-center gap-2 text-cs2-gray hover:text-white transition-colors"
       >
         <ArrowLeft size={18} />
         Back to Players
@@ -96,14 +96,14 @@ export default function PlayerProfile() {
       {/* Player Header */}
       <div className="cs-card p-6">
         <div className="flex items-center gap-6">
-          <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-accent-orange to-accent-gold flex items-center justify-center">
+          <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-cs2-orange to-cs2-orange-light flex items-center justify-center">
             <span className="text-4xl font-bold text-black">
               {player.name.charAt(0).toUpperCase()}
             </span>
           </div>
           <div className="flex-1">
             <h1 className="text-3xl font-bold text-white mb-2">{player.name}</h1>
-            <div className="flex items-center gap-6 text-sm text-gray-400">
+            <div className="flex items-center gap-6 text-sm text-cs2-gray">
               <span className="flex items-center gap-1">
                 <Gamepad2 size={16} />
                 {player.stats.matchesPlayed} matches
@@ -122,7 +122,7 @@ export default function PlayerProfile() {
             <div className="text-4xl font-bold gradient-text">
               {player.stats.winRate}%
             </div>
-            <span className="text-sm text-gray-400">Win Rate</span>
+            <span className="text-sm text-cs2-gray">Win Rate</span>
           </div>
         </div>
       </div>
@@ -184,7 +184,7 @@ export default function PlayerProfile() {
               </AreaChart>
             </ResponsiveContainer>
           ) : (
-            <p className="text-gray-400 text-center py-8">
+            <p className="text-cs2-gray text-center py-8">
               No match data available
             </p>
           )}
@@ -221,20 +221,20 @@ export default function PlayerProfile() {
               </PieChart>
             </ResponsiveContainer>
           ) : (
-            <p className="text-gray-400 text-center py-8">
+            <p className="text-cs2-gray text-center py-8">
               No completed matches yet
             </p>
           )}
           <div className="flex justify-center gap-6 mt-4">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-accent-green" />
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-cs2-gray">
                 Wins ({player.stats.wins})
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-red-500" />
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-cs2-gray">
                 Losses ({player.stats.losses})
               </span>
             </div>
@@ -269,7 +269,7 @@ export default function PlayerProfile() {
                     <td>
                       <Link
                         to={`/matches/${match.matchId}`}
-                        className="text-accent-orange hover:text-accent-gold"
+                        className="text-cs2-orange hover:text-cs2-orange-light"
                       >
                         {match.map}
                       </Link>
@@ -287,7 +287,7 @@ export default function PlayerProfile() {
                       <span
                         className={`font-medium ${
                           isDraw
-                            ? 'text-gray-400'
+                            ? 'text-cs2-gray'
                             : playerWon
                             ? 'text-accent-green'
                             : 'text-red-400'
@@ -301,7 +301,7 @@ export default function PlayerProfile() {
                       {match.playerAssists}
                     </td>
                     <td>{match.playerScore}</td>
-                    <td className="text-gray-400">
+                    <td className="text-cs2-gray">
                       {new Date(match.startTime).toLocaleDateString()}
                     </td>
                   </tr>

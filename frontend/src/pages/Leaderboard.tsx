@@ -38,17 +38,17 @@ export default function Leaderboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Trophy className="text-accent-gold" size={28} />
+          <Trophy className="text-cs2-orange-light" size={28} />
           <div>
             <h1 className="text-2xl font-bold text-white">Leaderboard</h1>
-            <p className="text-gray-400">Top players ranked by performance</p>
+            <p className="text-cs2-gray">Top players ranked by performance</p>
           </div>
         </div>
 
         {/* Sort Options */}
         <div className="flex items-center gap-2">
-          <Filter size={16} className="text-gray-400" />
-          <span className="text-sm text-gray-400">Sort by:</span>
+          <Filter size={16} className="text-cs2-gray" />
+          <span className="text-sm text-cs2-gray">Sort by:</span>
           <div className="flex gap-1">
             {sortOptions.map((option) => (
               <button
@@ -56,8 +56,8 @@ export default function Leaderboard() {
                 onClick={() => setSortBy(option.value)}
                 className={`flex items-center gap-1 px-3 py-1.5 rounded text-sm transition-all ${
                   sortBy === option.value
-                    ? 'bg-accent-orange text-black font-medium'
-                    : 'bg-cs-card text-gray-400 hover:text-white hover:bg-cs-hover'
+                    ? 'bg-cs2-orange text-black font-medium'
+                    : 'bg-cs-card text-cs2-gray hover:text-white hover:bg-cs-hover'
                 }`}
               >
                 {option.icon}
@@ -71,7 +71,7 @@ export default function Leaderboard() {
       {/* Leaderboard List */}
       {loading ? (
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-orange"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cs2-orange"></div>
         </div>
       ) : leaderboard.length > 0 ? (
         <div className="space-y-2">
@@ -96,7 +96,7 @@ export default function Leaderboard() {
           <h2 className="text-xl font-semibold text-white mb-2">
             No Players Yet
           </h2>
-          <p className="text-gray-400">
+          <p className="text-cs2-gray">
             Play some matches to see players on the leaderboard!
           </p>
         </div>

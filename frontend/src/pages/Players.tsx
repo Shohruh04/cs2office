@@ -31,10 +31,10 @@ export default function Players() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Users className="text-accent-orange" size={28} />
+          <Users className="text-cs2-orange" size={28} />
           <div>
             <h1 className="text-2xl font-bold text-white">Players</h1>
-            <p className="text-gray-400">{players.length} registered players</p>
+            <p className="text-cs2-gray">{players.length} registered players</p>
           </div>
         </div>
 
@@ -42,7 +42,7 @@ export default function Players() {
         <div className="relative">
           <Search
             size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-cs2-gray"
           />
           <input
             type="text"
@@ -57,7 +57,7 @@ export default function Players() {
       {/* Players Grid */}
       {loading ? (
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-orange"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cs2-orange"></div>
         </div>
       ) : filteredPlayers.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -66,7 +66,7 @@ export default function Players() {
               <div className="cs-card-hover p-4">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 rounded-lg bg-cs-border flex items-center justify-center">
-                    <span className="text-2xl font-bold text-gray-400">
+                    <span className="text-2xl font-bold text-cs2-gray">
                       {player.name.charAt(0).toUpperCase()}
                     </span>
                   </div>
@@ -74,7 +74,7 @@ export default function Players() {
                     <h3 className="font-semibold text-white text-lg">
                       {player.name}
                     </h3>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-cs2-gray">
                       {player.stats.matchesPlayed} matches
                     </p>
                   </div>
@@ -106,7 +106,7 @@ export default function Players() {
                 </div>
 
                 <div className="mt-3 pt-3 border-t border-cs-border flex justify-between text-sm">
-                  <span className="text-gray-400">K/D Ratio</span>
+                  <span className="text-cs2-gray">K/D Ratio</span>
                   <span
                     className={`font-bold ${
                       player.stats.kdRatio >= 1
@@ -127,7 +127,7 @@ export default function Players() {
           <h2 className="text-xl font-semibold text-white mb-2">
             {search ? 'No Players Found' : 'No Players Yet'}
           </h2>
-          <p className="text-gray-400">
+          <p className="text-cs2-gray">
             {search
               ? 'Try a different search term.'
               : 'Players will appear here after they play matches.'}

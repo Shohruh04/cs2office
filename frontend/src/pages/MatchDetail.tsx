@@ -38,7 +38,7 @@ export default function MatchDetail() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-orange"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cs2-orange"></div>
       </div>
     );
   }
@@ -63,7 +63,7 @@ export default function MatchDetail() {
       {/* Back Button */}
       <Link
         to="/matches"
-        className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        className="inline-flex items-center gap-2 text-cs2-gray hover:text-white transition-colors"
       >
         <ArrowLeft size={18} />
         Back to Matches
@@ -73,10 +73,10 @@ export default function MatchDetail() {
       <div className="cs-card p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <MapPin size={24} className="text-accent-orange" />
+            <MapPin size={24} className="text-cs2-orange" />
             <div>
               <h1 className="text-2xl font-bold text-white">{match.map}</h1>
-              <div className="flex items-center gap-4 text-sm text-gray-400">
+              <div className="flex items-center gap-4 text-sm text-cs2-gray">
                 <span className="flex items-center gap-1">
                   <Clock size={14} />
                   {new Date(match.startTime).toLocaleString()}
@@ -120,7 +120,7 @@ export default function MatchDetail() {
 
         {/* Round Timeline */}
         <div>
-          <h3 className="text-sm font-medium text-gray-400 mb-3">
+          <h3 className="text-sm font-medium text-cs2-gray mb-3">
             Round History
           </h3>
           <div className="flex gap-1 flex-wrap">
@@ -132,7 +132,7 @@ export default function MatchDetail() {
                     ? 'bg-ct/20 text-ct border border-ct/30'
                     : round.winnerTeam === 'T'
                     ? 'bg-t/20 text-t border border-t/30'
-                    : 'bg-gray-700 text-gray-400'
+                    : 'bg-gray-700 text-cs2-gray'
                 }`}
                 title={`Round ${round.roundNumber}: ${round.winnerTeam || '?'} - ${round.winReason || ''}`}
               >
@@ -150,7 +150,7 @@ export default function MatchDetail() {
           <div className="flex items-center gap-2 mb-4">
             <Shield className="text-ct" />
             <h2 className="text-lg font-semibold text-ct">Counter-Terrorists</h2>
-            <span className="text-gray-400 text-sm">
+            <span className="text-cs2-gray text-sm">
               ({match.teams.ct.players.length} players)
             </span>
           </div>
@@ -173,7 +173,7 @@ export default function MatchDetail() {
                     <td>
                       <Link
                         to={`/players/${player.playerId}`}
-                        className="text-white hover:text-accent-gold transition-colors"
+                        className="text-white hover:text-cs2-orange-light transition-colors"
                       >
                         {player.name}
                       </Link>
@@ -184,10 +184,10 @@ export default function MatchDetail() {
                     <td className="text-center text-red-400 font-medium">
                       {player.deaths}
                     </td>
-                    <td className="text-center text-gray-400">
+                    <td className="text-center text-cs2-gray">
                       {player.assists}
                     </td>
-                    <td className="text-center text-accent-gold">
+                    <td className="text-center text-cs2-orange-light">
                       {player.headshots}
                     </td>
                     <td className="text-center text-yellow-400">
@@ -209,7 +209,7 @@ export default function MatchDetail() {
         {/* T Team */}
         <div>
           <div className="flex items-center gap-2 mb-4 justify-end">
-            <span className="text-gray-400 text-sm">
+            <span className="text-cs2-gray text-sm">
               ({match.teams.t.players.length} players)
             </span>
             <h2 className="text-lg font-semibold text-t">Terrorists</h2>
@@ -234,7 +234,7 @@ export default function MatchDetail() {
                     <td>
                       <Link
                         to={`/players/${player.playerId}`}
-                        className="text-white hover:text-accent-gold transition-colors"
+                        className="text-white hover:text-cs2-orange-light transition-colors"
                       >
                         {player.name}
                       </Link>
@@ -245,10 +245,10 @@ export default function MatchDetail() {
                     <td className="text-center text-red-400 font-medium">
                       {player.deaths}
                     </td>
-                    <td className="text-center text-gray-400">
+                    <td className="text-center text-cs2-gray">
                       {player.assists}
                     </td>
-                    <td className="text-center text-accent-gold">
+                    <td className="text-center text-cs2-orange-light">
                       {player.headshots}
                     </td>
                     <td className="text-center text-yellow-400">

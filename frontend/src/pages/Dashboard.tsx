@@ -41,7 +41,7 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-orange"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cs2-orange"></div>
       </div>
     );
   }
@@ -61,7 +61,7 @@ export default function Dashboard() {
                   <h2 className="text-xl font-bold text-white">
                     {liveState.map}
                   </h2>
-                  <p className="text-gray-400">Round {liveState.round}</p>
+                  <p className="text-cs2-gray">Round {liveState.round}</p>
                 </div>
               </div>
               <div className="flex items-center gap-8">
@@ -69,17 +69,17 @@ export default function Dashboard() {
                   <span className="text-3xl font-bold text-ct">
                     {liveState.ctScore}
                   </span>
-                  <p className="text-xs text-gray-400">CT</p>
+                  <p className="text-xs text-cs2-gray">CT</p>
                 </div>
                 <span className="text-2xl text-gray-600">:</span>
                 <div className="text-center">
                   <span className="text-3xl font-bold text-t">
                     {liveState.tScore}
                   </span>
-                  <p className="text-xs text-gray-400">T</p>
+                  <p className="text-xs text-cs2-gray">T</p>
                 </div>
               </div>
-              <ChevronRight className="text-gray-400" />
+              <ChevronRight className="text-cs2-gray" />
             </div>
           </div>
         </Link>
@@ -121,7 +121,7 @@ export default function Dashboard() {
             <h2 className="text-lg font-semibold text-white">Top Players</h2>
             <Link
               to="/leaderboard"
-              className="text-sm text-accent-orange hover:text-accent-gold transition-colors"
+              className="text-sm text-cs2-orange hover:text-cs2-orange-light transition-colors"
             >
               View all
             </Link>
@@ -141,7 +141,7 @@ export default function Dashboard() {
               />
             ))}
             {leaderboard.length === 0 && (
-              <div className="cs-card p-8 text-center text-gray-400">
+              <div className="cs-card p-8 text-center text-cs2-gray">
                 No players yet. Play a match to get started!
               </div>
             )}
@@ -158,7 +158,7 @@ export default function Dashboard() {
               </h2>
               <Link
                 to="/matches"
-                className="text-sm text-accent-orange hover:text-accent-gold transition-colors"
+                className="text-sm text-cs2-orange hover:text-cs2-orange-light transition-colors"
               >
                 View all
               </Link>
@@ -169,7 +169,7 @@ export default function Dashboard() {
                   <div className="cs-card-hover p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <MapPin size={16} className="text-accent-orange" />
+                        <MapPin size={16} className="text-cs2-orange" />
                         <span className="font-medium text-white">
                           {match.map}
                         </span>
@@ -183,7 +183,7 @@ export default function Dashboard() {
                           {match.teamTScore}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <div className="flex items-center gap-2 text-sm text-cs2-gray">
                         <Clock size={14} />
                         {new Date(match.startTime).toLocaleDateString()}
                       </div>
@@ -192,7 +192,7 @@ export default function Dashboard() {
                 </Link>
               ))}
               {(!stats?.recentMatches || stats.recentMatches.length === 0) && (
-                <div className="cs-card p-8 text-center text-gray-400">
+                <div className="cs-card p-8 text-center text-cs2-gray">
                   No matches played yet.
                 </div>
               )}
@@ -209,7 +209,7 @@ export default function Dashboard() {
                 <div className="space-y-3">
                   {stats.mapStats.map((map, index) => (
                     <div key={map.map} className="flex items-center gap-3">
-                      <span className="text-sm text-gray-400 w-4">
+                      <span className="text-sm text-cs2-gray w-4">
                         {index + 1}
                       </span>
                       <div className="flex-1">
@@ -217,13 +217,13 @@ export default function Dashboard() {
                           <span className="text-white font-medium">
                             {map.map}
                           </span>
-                          <span className="text-sm text-gray-400">
+                          <span className="text-sm text-cs2-gray">
                             {map.count} games
                           </span>
                         </div>
                         <div className="h-1 bg-cs-border rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-accent-orange rounded-full"
+                            className="h-full bg-cs2-orange rounded-full"
                             style={{
                               width: `${
                                 (map.count / (stats.mapStats[0]?.count || 1)) *
@@ -237,7 +237,7 @@ export default function Dashboard() {
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-gray-400 py-4">
+                <p className="text-center text-cs2-gray py-4">
                   No map data yet.
                 </p>
               )}

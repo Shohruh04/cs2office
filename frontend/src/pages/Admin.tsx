@@ -10,6 +10,8 @@ import {
   Save,
   X,
   RefreshCw,
+  Download,
+  FileText,
 } from 'lucide-react';
 import { adminAPI, playersAPI, matchesAPI, type AdminStatus, type Player, type Match } from '../api';
 
@@ -77,7 +79,7 @@ export default function Admin() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-orange"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cs2-orange"></div>
       </div>
     );
   }
@@ -87,10 +89,10 @@ export default function Admin() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Settings className="text-accent-orange" size={28} />
+          <Settings className="text-cs2-orange" size={28} />
           <div>
             <h1 className="text-2xl font-bold text-white">Admin Panel</h1>
-            <p className="text-gray-400">Manage players and matches</p>
+            <p className="text-cs2-gray">Manage players and matches</p>
           </div>
         </div>
         <button
@@ -107,7 +109,7 @@ export default function Admin() {
         <div className="cs-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <Server size={16} className="text-accent-green" />
-            <span className="text-sm text-gray-400">Status</span>
+            <span className="text-sm text-cs2-gray">Status</span>
           </div>
           <span className="text-lg font-semibold text-accent-green">
             {status?.status ?? 'Unknown'}
@@ -115,8 +117,8 @@ export default function Admin() {
         </div>
         <div className="cs-card p-4">
           <div className="flex items-center gap-2 mb-2">
-            <RefreshCw size={16} className="text-accent-orange" />
-            <span className="text-sm text-gray-400">Uptime</span>
+            <RefreshCw size={16} className="text-cs2-orange" />
+            <span className="text-sm text-cs2-gray">Uptime</span>
           </div>
           <span className="text-lg font-semibold text-white">
             {formatUptime(status?.uptime ?? 0)}
@@ -125,7 +127,7 @@ export default function Admin() {
         <div className="cs-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <Database size={16} className="text-ct" />
-            <span className="text-sm text-gray-400">Memory</span>
+            <span className="text-sm text-cs2-gray">Memory</span>
           </div>
           <span className="text-lg font-semibold text-white">
             {formatBytes(status?.memory.heapUsed ?? 0)}
@@ -134,7 +136,7 @@ export default function Admin() {
         <div className="cs-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <Gamepad2 size={16} className="text-t" />
-            <span className="text-sm text-gray-400">Current Match</span>
+            <span className="text-sm text-cs2-gray">Current Match</span>
           </div>
           <span className="text-lg font-semibold text-white">
             {status?.currentMatch?.map ?? 'None'}
@@ -142,10 +144,44 @@ export default function Admin() {
         </div>
       </div>
 
+      {/* GSI Config Download */}
+      <div className="cs-card p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <FileText size={20} className="text-cs2-orange" />
+          <h2 className="text-lg font-semibold text-white">
+            Game State Integration Setup
+          </h2>
+        </div>
+        <div className="flex items-start gap-6">
+          <div className="flex-1">
+            <p className="text-cs2-gray mb-3">
+              Download the GSI config file and place it in your CS2 cfg folder to enable live match tracking.
+            </p>
+            <div className="bg-cs2-darker p-3 rounded-lg font-mono text-sm text-cs2-gray mb-4">
+              <span className="text-cs2-orange">Path:</span> Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\
+            </div>
+            <ol className="text-sm text-cs2-gray space-y-2 list-decimal list-inside">
+              <li>Download the config file below</li>
+              <li>Copy it to your CS2 cfg folder</li>
+              <li>Restart CS2 if it's running</li>
+              <li>Start a match to see live stats</li>
+            </ol>
+          </div>
+          <a
+            href="/gamestate_integration_fizmasoft.cfg"
+            download="gamestate_integration_fizmasoft.cfg"
+            className="cs-button flex items-center gap-2"
+          >
+            <Download size={18} />
+            Download Config
+          </a>
+        </div>
+      </div>
+
       {/* Players Management */}
       <div className="cs-card p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Users size={20} className="text-accent-orange" />
+          <Users size={20} className="text-cs2-orange" />
           <h2 className="text-lg font-semibold text-white">
             Players ({players.length})
           </h2>
@@ -165,7 +201,7 @@ export default function Admin() {
             <tbody>
               {players.map((player) => (
                 <tr key={player.id}>
-                  <td className="text-gray-400">{player.id}</td>
+                  <td className="text-cs2-gray">{player.id}</td>
                   <td>
                     {editingPlayer === player.id ? (
                       <input
@@ -179,7 +215,7 @@ export default function Admin() {
                       <span className="text-white">{player.name}</span>
                     )}
                   </td>
-                  <td className="text-gray-400 text-sm font-mono">
+                  <td className="text-cs2-gray text-sm font-mono">
                     {player.steamId}
                   </td>
                   <td>{player.stats.matchesPlayed}</td>
@@ -195,7 +231,7 @@ export default function Admin() {
                         </button>
                         <button
                           onClick={() => setEditingPlayer(null)}
-                          className="text-gray-400 hover:text-white"
+                          className="text-cs2-gray hover:text-white"
                         >
                           <X size={16} />
                         </button>
@@ -206,7 +242,7 @@ export default function Admin() {
                           setEditingPlayer(player.id);
                           setEditName(player.name);
                         }}
-                        className="text-gray-400 hover:text-accent-orange"
+                        className="text-cs2-gray hover:text-cs2-orange"
                       >
                         <Edit size={16} />
                       </button>
@@ -222,7 +258,7 @@ export default function Admin() {
       {/* Matches Management */}
       <div className="cs-card p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Gamepad2 size={20} className="text-accent-orange" />
+          <Gamepad2 size={20} className="text-cs2-orange" />
           <h2 className="text-lg font-semibold text-white">
             Recent Matches ({matches.length})
           </h2>
@@ -243,7 +279,7 @@ export default function Admin() {
             <tbody>
               {matches.map((match) => (
                 <tr key={match.id}>
-                  <td className="text-gray-400">{match.id}</td>
+                  <td className="text-cs2-gray">{match.id}</td>
                   <td className="text-white">{match.map}</td>
                   <td>
                     <span className="text-ct">{match.teamCtScore}</span>
@@ -258,19 +294,19 @@ export default function Admin() {
                           ? 'bg-accent-green/20 text-accent-green'
                           : match.status === 'ongoing'
                           ? 'bg-red-500/20 text-red-400'
-                          : 'bg-gray-500/20 text-gray-400'
+                          : 'bg-gray-500/20 text-cs2-gray'
                       }`}
                     >
                       {match.status}
                     </span>
                   </td>
-                  <td className="text-gray-400">
+                  <td className="text-cs2-gray">
                     {new Date(match.startTime).toLocaleDateString()}
                   </td>
                   <td>
                     <button
                       onClick={() => handleDeleteMatch(match.id)}
-                      className="text-gray-400 hover:text-red-400"
+                      className="text-cs2-gray hover:text-red-400"
                       title="Delete match"
                     >
                       <Trash2 size={16} />

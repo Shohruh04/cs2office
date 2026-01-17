@@ -50,7 +50,7 @@ export default function PlayerCard({
 
         {/* Avatar */}
         <div className="w-12 h-12 rounded-lg bg-cs-border flex items-center justify-center overflow-hidden">
-          <span className="text-xl font-bold text-gray-400">
+          <span className="text-xl font-bold text-cs2-gray">
             {name.charAt(0).toUpperCase()}
           </span>
         </div>
@@ -59,7 +59,7 @@ export default function PlayerCard({
         <div className="flex-1">
           <h3 className="font-semibold text-white">{name}</h3>
           {matchesPlayed !== undefined && (
-            <p className="text-sm text-gray-400">{matchesPlayed} matches</p>
+            <p className="text-sm text-cs2-gray">{matchesPlayed} matches</p>
           )}
         </div>
 
@@ -70,7 +70,7 @@ export default function PlayerCard({
               <Target size={14} />
               <span className="font-bold">{kills}</span>
             </div>
-            <span className="text-xs text-gray-500">Kills</span>
+            <span className="text-xs text-cs2-gray-dark">Kills</span>
           </div>
 
           <div className="text-center">
@@ -78,22 +78,22 @@ export default function PlayerCard({
               <Skull size={14} />
               <span className="font-bold">{deaths}</span>
             </div>
-            <span className="text-xs text-gray-500">Deaths</span>
+            <span className="text-xs text-cs2-gray-dark">Deaths</span>
           </div>
 
           <div className="text-center">
             <div className={`font-bold ${kdRatio >= 1 ? 'text-accent-green' : 'text-red-400'}`}>
               {kdRatio.toFixed(2)}
             </div>
-            <span className="text-xs text-gray-500">K/D</span>
+            <span className="text-xs text-cs2-gray-dark">K/D</span>
           </div>
 
           <div className="text-center">
-            <div className="flex items-center gap-1 text-accent-gold">
+            <div className="flex items-center gap-1 text-cs2-orange-light">
               <Crosshair size={14} />
               <span className="font-bold">{headshotPercentage}%</span>
             </div>
-            <span className="text-xs text-gray-500">HS%</span>
+            <span className="text-xs text-cs2-gray-dark">HS%</span>
           </div>
 
           {mvps !== undefined && (
@@ -102,7 +102,7 @@ export default function PlayerCard({
                 <Award size={14} />
                 <span className="font-bold">{mvps}</span>
               </div>
-              <span className="text-xs text-gray-500">MVPs</span>
+              <span className="text-xs text-cs2-gray-dark">MVPs</span>
             </div>
           )}
         </div>
