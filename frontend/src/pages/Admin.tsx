@@ -144,28 +144,22 @@ export default function Admin() {
         </div>
       </div>
 
-      {/* GSI Config Download */}
+      {/* GSI Config Download - Host */}
       <div className="cs-card p-6">
         <div className="flex items-center gap-2 mb-4">
           <FileText size={20} className="text-cs2-orange" />
           <h2 className="text-lg font-semibold text-white">
-            Game State Integration Setup
+            GSI Config - For Host (This PC)
           </h2>
         </div>
         <div className="flex items-start gap-6">
           <div className="flex-1">
             <p className="text-cs2-gray mb-3">
-              Download the GSI config file and place it in your CS2 cfg folder to enable live match tracking.
+              Install this config on the PC running the tracker (localhost).
             </p>
             <div className="bg-cs2-darker p-3 rounded-lg font-mono text-sm text-cs2-gray mb-4">
               <span className="text-cs2-orange">Path:</span> Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\
             </div>
-            <ol className="text-sm text-cs2-gray space-y-2 list-decimal list-inside">
-              <li>Download the config file below</li>
-              <li>Copy it to your CS2 cfg folder</li>
-              <li>Restart CS2 if it's running</li>
-              <li>Start a match to see live stats</li>
-            </ol>
           </div>
           <a
             href="/gamestate_integration_fizmasoft.cfg"
@@ -173,47 +167,69 @@ export default function Admin() {
             className="cs-button flex items-center gap-2"
           >
             <Download size={18} />
-            Download Config
+            Host Config
           </a>
         </div>
       </div>
 
-      {/* Important Note about Spectator Mode */}
-      <div className="cs-card p-6 border-l-4 border-yellow-500">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-yellow-500 text-xl">⚠️</span>
+      {/* GSI Config Download - Other Players */}
+      <div className="cs-card p-6 border-l-4 border-accent-green">
+        <div className="flex items-center gap-2 mb-4">
+          <Users size={20} className="text-accent-green" />
           <h2 className="text-lg font-semibold text-white">
-            Important: How to Track All Players
+            GSI Config - For Other Players (Network)
+          </h2>
+        </div>
+        <div className="space-y-4">
+          <p className="text-cs2-gray">
+            Share this config with other players. They need to edit the IP address before using.
+          </p>
+          <div className="bg-cs2-darker p-4 rounded-lg space-y-3">
+            <p className="text-white font-semibold">Setup Instructions:</p>
+            <ol className="list-decimal list-inside space-y-2 text-sm text-cs2-gray">
+              <li>Download the config file</li>
+              <li>Open it in Notepad</li>
+              <li>Replace <code className="text-red-400">REPLACE_WITH_HOST_IP</code> with the host's IP (e.g., <code className="text-accent-green">192.168.5.77</code>)</li>
+              <li>Save and copy to CS2 cfg folder</li>
+              <li>Restart CS2</li>
+            </ol>
+          </div>
+          <div className="bg-cs2-darker p-3 rounded-lg">
+            <p className="text-sm text-cs2-gray mb-2">Find host IP by running in CMD:</p>
+            <code className="text-cs2-orange">ipconfig | findstr IPv4</code>
+          </div>
+          <a
+            href="/gamestate_integration_fizmasoft_network.cfg"
+            download="gamestate_integration_fizmasoft_network.cfg"
+            className="cs-button-secondary flex items-center gap-2 w-fit"
+          >
+            <Download size={18} />
+            Network Config (for other players)
+          </a>
+        </div>
+      </div>
+
+      {/* How it works */}
+      <div className="cs-card p-6 border-l-4 border-ct">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-ct text-xl">ℹ️</span>
+          <h2 className="text-lg font-semibold text-white">
+            How Multi-Player Tracking Works
           </h2>
         </div>
         <div className="space-y-3 text-cs2-gray">
           <p>
-            <strong className="text-white">CS2 Limitation:</strong> Game State Integration only sends data for ALL players when you are <span className="text-yellow-500">spectating</span> the match, not when playing.
+            When <strong className="text-white">everyone installs the GSI config</strong>, each player's CS2 sends their own stats to the tracker. This means:
           </p>
-          <p>When playing, only YOUR stats are tracked. To track everyone:</p>
-          <div className="bg-cs2-darker p-4 rounded-lg space-y-2">
-            <p className="text-white font-semibold">Option 1: Spectator Mode (Recommended)</p>
-            <ol className="list-decimal list-inside space-y-1 text-sm">
-              <li>Have one person join as <span className="text-ct">Spectator</span> team</li>
-              <li>That person's CS2 will send ALL player data to the tracker</li>
-              <li>Everyone else can play normally</li>
-            </ol>
-          </div>
-          <div className="bg-cs2-darker p-4 rounded-lg space-y-2">
-            <p className="text-white font-semibold">Option 2: GOTV (Advanced)</p>
-            <ol className="list-decimal list-inside space-y-1 text-sm">
-              <li>Enable GOTV on your server with <code className="text-cs2-orange">tv_enable 1</code></li>
-              <li>Connect to GOTV port to spectate</li>
-            </ol>
-          </div>
-          <div className="bg-cs2-darker p-4 rounded-lg space-y-2">
-            <p className="text-white font-semibold">Option 3: Everyone Installs GSI Config</p>
-            <ol className="list-decimal list-inside space-y-1 text-sm">
-              <li>Each player installs the GSI config on their PC</li>
-              <li>Change the URI to point to the host's IP: <code className="text-cs2-orange">http://192.168.x.x:8000/api/gsi</code></li>
-              <li>Each player's stats will be tracked individually</li>
-            </ol>
-          </div>
+          <ul className="list-disc list-inside space-y-1 text-sm">
+            <li><span className="text-accent-green">Everyone can play</span> - no one needs to spectate</li>
+            <li>Each player's kills, deaths, assists are tracked individually</li>
+            <li>All stats are combined in the leaderboard</li>
+            <li>Live match shows all connected players</li>
+          </ul>
+          <p className="text-yellow-500 text-sm mt-4">
+            Note: Players must be on the same network (LAN) or the host must port-forward 8000.
+          </p>
         </div>
       </div>
 
