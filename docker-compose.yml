@@ -1,0 +1,49 @@
+services:
+  cs2-stats:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fizmasoft-cs2-stats
+    ports:
+      - "8000:8000"
+    volumes:
+      # Persist SQLite database
+      - cs2-data:/app/backend/data
+    environment:
+      - NODE_ENV=production
+      - PORT=8000
+      - HOST=0.0.0.0
+    restart: unless-stopped
+    networks:
+      - cs2-network
+
+  # Development service (optional)
+  cs2-stats-dev:
+    profiles: ["dev"]
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: fizmasoft-cs2-stats-dev
+    ports:
+      - "8000:8000"
+      - "5173:5173"
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      - /app/backend/node_modules
+      - /app/frontend/node_modules
+      - cs2-data-dev:/app/backend/data
+    environment:
+      - NODE_ENV=development
+    networks:
+      - cs2-network
+
+volumes:
+  cs2-data:
+    driver: local
+  cs2-data-dev:
+    driver: local
+
+networks:
+  cs2-network:
+    driver: bridge
